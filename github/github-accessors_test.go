@@ -25140,6 +25140,25 @@ func TestListContributorsOptions_GetAnon(tt *testing.T) {
 	l.GetAnon()
 }
 
+func TestListCopilotCodingAgentRepositoriesResponse_GetRepositories(tt *testing.T) {
+	tt.Parallel()
+	zeroValue := []*Repository{}
+	l := &ListCopilotCodingAgentRepositoriesResponse{Repositories: zeroValue}
+	l.GetRepositories()
+	l = &ListCopilotCodingAgentRepositoriesResponse{}
+	l.GetRepositories()
+	l = nil
+	l.GetRepositories()
+}
+
+func TestListCopilotCodingAgentRepositoriesResponse_GetTotalCount(tt *testing.T) {
+	tt.Parallel()
+	l := &ListCopilotCodingAgentRepositoriesResponse{}
+	l.GetTotalCount()
+	l = nil
+	l.GetTotalCount()
+}
+
 func TestListCopilotSeatsResponse_GetSeats(tt *testing.T) {
 	tt.Parallel()
 	zeroValue := []*CopilotSeatDetails{}

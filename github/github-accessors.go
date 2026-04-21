@@ -19886,6 +19886,22 @@ func (l *ListContributorsOptions) GetAnon() string {
 	return l.Anon
 }
 
+// GetRepositories returns the Repositories slice if it's non-nil, nil otherwise.
+func (l *ListCopilotCodingAgentRepositoriesResponse) GetRepositories() []*Repository {
+	if l == nil || l.Repositories == nil {
+		return nil
+	}
+	return l.Repositories
+}
+
+// GetTotalCount returns the TotalCount field.
+func (l *ListCopilotCodingAgentRepositoriesResponse) GetTotalCount() int {
+	if l == nil {
+		return 0
+	}
+	return l.TotalCount
+}
+
 // GetSeats returns the Seats slice if it's non-nil, nil otherwise.
 func (l *ListCopilotSeatsResponse) GetSeats() []*CopilotSeatDetails {
 	if l == nil || l.Seats == nil {

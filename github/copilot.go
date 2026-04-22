@@ -356,19 +356,19 @@ func (s *CopilotService) ListCopilotEnterpriseSeats(ctx context.Context, enterpr
 	return copilotSeats, resp, nil
 }
 
-// ListCopilotCodingAgentRepositoriesResponse represents the response from listing
+// ListOrganizationCopilotCodingAgentRepositoriesResponse represents the response from listing
 // repositories enabled for the Copilot coding agent in an organization.
-type ListCopilotCodingAgentRepositoriesResponse struct {
+type ListOrganizationCopilotCodingAgentRepositoriesResponse struct {
 	TotalCount   int           `json:"total_count"`
 	Repositories []*Repository `json:"repositories"`
 }
 
-// ListCopilotCodingAgentRepositories lists repositories enabled for the Copilot coding agent in an organization.
+// ListOrganizationCodingAgentRepositories lists repositories enabled for the Copilot coding agent in an organization.
 //
 // GitHub API docs: https://docs.github.com/rest/copilot/copilot-coding-agent-management?apiVersion=2022-11-28#list-repositories-enabled-for-copilot-coding-agent-in-an-organization
 //
 //meta:operation GET /orgs/{org}/copilot/coding-agent/permissions/repositories
-func (s *CopilotService) ListCopilotCodingAgentRepositories(ctx context.Context, org string, opts *ListOptions) (*ListCopilotCodingAgentRepositoriesResponse, *Response, error) {
+func (s *CopilotService) ListOrganizationCodingAgentRepositories(ctx context.Context, org string, opts *ListOptions) (*ListOrganizationCopilotCodingAgentRepositoriesResponse, *Response, error) {
 	u := fmt.Sprintf("orgs/%v/copilot/coding-agent/permissions/repositories", org)
 	u, err := addOptions(u, opts)
 	if err != nil {
@@ -380,7 +380,7 @@ func (s *CopilotService) ListCopilotCodingAgentRepositories(ctx context.Context,
 		return nil, nil, err
 	}
 
-	var result *ListCopilotCodingAgentRepositoriesResponse
+	var result *ListOrganizationCopilotCodingAgentRepositoriesResponse
 	resp, err := s.client.Do(ctx, req, &result)
 	if err != nil {
 		return nil, resp, err
@@ -394,12 +394,12 @@ func (s *CopilotService) ListCopilotCodingAgentRepositories(ctx context.Context,
 // list of file paths excluded from Copilot for that repository.
 type CopilotOrganizationContentExclusionDetails map[string][]string
 
-// GetCopilotOrganizationContentExclusionDetails gets the Copilot content exclusion rules for an organization.
+// GetOrganizationContentExclusionDetails gets the Copilot content exclusion rules for an organization.
 //
 // GitHub API docs: https://docs.github.com/rest/copilot/copilot-content-exclusion-management?apiVersion=2022-11-28#get-copilot-content-exclusion-rules-for-an-organization
 //
 //meta:operation GET /orgs/{org}/copilot/content_exclusion
-func (s *CopilotService) GetCopilotOrganizationContentExclusionDetails(ctx context.Context, org string) (CopilotOrganizationContentExclusionDetails, *Response, error) {
+func (s *CopilotService) GetOrganizationContentExclusionDetails(ctx context.Context, org string) (CopilotOrganizationContentExclusionDetails, *Response, error) {
 	u := fmt.Sprintf("orgs/%v/copilot/content_exclusion", org)
 
 	req, err := s.client.NewRequest("GET", u, nil)

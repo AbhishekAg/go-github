@@ -25140,25 +25140,6 @@ func TestListContributorsOptions_GetAnon(tt *testing.T) {
 	l.GetAnon()
 }
 
-func TestListCopilotCodingAgentRepositoriesResponse_GetRepositories(tt *testing.T) {
-	tt.Parallel()
-	zeroValue := []*Repository{}
-	l := &ListCopilotCodingAgentRepositoriesResponse{Repositories: zeroValue}
-	l.GetRepositories()
-	l = &ListCopilotCodingAgentRepositoriesResponse{}
-	l.GetRepositories()
-	l = nil
-	l.GetRepositories()
-}
-
-func TestListCopilotCodingAgentRepositoriesResponse_GetTotalCount(tt *testing.T) {
-	tt.Parallel()
-	l := &ListCopilotCodingAgentRepositoriesResponse{}
-	l.GetTotalCount()
-	l = nil
-	l.GetTotalCount()
-}
-
 func TestListCopilotSeatsResponse_GetSeats(tt *testing.T) {
 	tt.Parallel()
 	zeroValue := []*CopilotSeatDetails{}
@@ -25588,6 +25569,25 @@ func TestListOptions_GetPerPage(tt *testing.T) {
 	l.GetPerPage()
 	l = nil
 	l.GetPerPage()
+}
+
+func TestListOrganizationCopilotCodingAgentRepositoriesResponse_GetRepositories(tt *testing.T) {
+	tt.Parallel()
+	zeroValue := []*Repository{}
+	l := &ListOrganizationCopilotCodingAgentRepositoriesResponse{Repositories: zeroValue}
+	l.GetRepositories()
+	l = &ListOrganizationCopilotCodingAgentRepositoriesResponse{}
+	l.GetRepositories()
+	l = nil
+	l.GetRepositories()
+}
+
+func TestListOrganizationCopilotCodingAgentRepositoriesResponse_GetTotalCount(tt *testing.T) {
+	tt.Parallel()
+	l := &ListOrganizationCopilotCodingAgentRepositoriesResponse{}
+	l.GetTotalCount()
+	l = nil
+	l.GetTotalCount()
 }
 
 func TestListOrganizations_GetOrganizations(tt *testing.T) {

@@ -776,7 +776,7 @@ func TestCopilotService_ListCopilotEnterpriseSeats(t *testing.T) {
 	})
 }
 
-func TestCopilotService_ListCopilotCodingAgentRepositories(t *testing.T) {
+func TestCopilotService_ListOrganizationCodingAgentRepositories(t *testing.T) {
 	t.Parallel()
 	client, mux, _ := setup(t)
 
@@ -797,12 +797,12 @@ func TestCopilotService_ListCopilotCodingAgentRepositories(t *testing.T) {
 
 	ctx := t.Context()
 	opts := &ListOptions{Page: 1, PerPage: 100}
-	got, _, err := client.Copilot.ListCopilotCodingAgentRepositories(ctx, "o", opts)
+	got, _, err := client.Copilot.ListOrganizationCodingAgentRepositories(ctx, "o", opts)
 	if err != nil {
-		t.Errorf("Copilot.ListCopilotCodingAgentRepositories returned error: %v", err)
+		t.Errorf("Copilot.ListOrganizationCodingAgentRepositories returned error: %v", err)
 	}
 
-	want := &ListCopilotCodingAgentRepositoriesResponse{
+	want := &ListOrganizationCopilotCodingAgentRepositoriesResponse{
 		TotalCount: 2,
 		Repositories: []*Repository{
 			{ID: Ptr(int64(1)), Name: Ptr("Hello-World"), FullName: Ptr("octocat/Hello-World")},
@@ -810,26 +810,26 @@ func TestCopilotService_ListCopilotCodingAgentRepositories(t *testing.T) {
 		},
 	}
 	if !cmp.Equal(got, want) {
-		t.Errorf("Copilot.ListCopilotCodingAgentRepositories returned %+v, want %+v", got, want)
+		t.Errorf("Copilot.ListOrganizationCodingAgentRepositories returned %+v, want %+v", got, want)
 	}
 
-	const methodName = "ListCopilotCodingAgentRepositories"
+	const methodName = "ListOrganizationCodingAgentRepositories"
 
 	testBadOptions(t, methodName, func() (err error) {
-		_, _, err = client.Copilot.ListCopilotCodingAgentRepositories(ctx, "\n", opts)
+		_, _, err = client.Copilot.ListOrganizationCodingAgentRepositories(ctx, "\n", opts)
 		return err
 	})
 
 	testNewRequestAndDoFailure(t, methodName, client, func() (*Response, error) {
-		got, resp, err := client.Copilot.ListCopilotCodingAgentRepositories(ctx, "o", opts)
+		got, resp, err := client.Copilot.ListOrganizationCodingAgentRepositories(ctx, "o", opts)
 		if got != nil {
-			t.Errorf("Copilot.ListCopilotCodingAgentRepositories returned %+v, want nil", got)
+			t.Errorf("Copilot.ListOrganizationCodingAgentRepositories returned %+v, want nil", got)
 		}
 		return resp, err
 	})
 }
 
-func TestCopilotService_GetCopilotOrganizationContentExclusionDetails(t *testing.T) {
+func TestCopilotService_GetOrganizationContentExclusionDetails(t *testing.T) {
 	t.Parallel()
 	client, mux, _ := setup(t)
 
@@ -842,9 +842,9 @@ func TestCopilotService_GetCopilotOrganizationContentExclusionDetails(t *testing
 	})
 
 	ctx := t.Context()
-	got, _, err := client.Copilot.GetCopilotOrganizationContentExclusionDetails(ctx, "o")
+	got, _, err := client.Copilot.GetOrganizationContentExclusionDetails(ctx, "o")
 	if err != nil {
-		t.Errorf("Copilot.GetCopilotOrganizationContentExclusionDetails returned error: %v", err)
+		t.Errorf("Copilot.GetOrganizationContentExclusionDetails returned error: %v", err)
 	}
 
 	want := CopilotOrganizationContentExclusionDetails{
@@ -852,30 +852,30 @@ func TestCopilotService_GetCopilotOrganizationContentExclusionDetails(t *testing
 		"octo-repo-2": {"/docs/secret.md", "**/*.env"},
 	}
 	if !cmp.Equal(got, want) {
-		t.Errorf("Copilot.GetCopilotOrganizationContentExclusionDetails returned %+v, want %+v", got, want)
+		t.Errorf("Copilot.GetOrganizationContentExclusionDetails returned %+v, want %+v", got, want)
 	}
 
-	const methodName = "GetCopilotOrganizationContentExclusionDetails"
+	const methodName = "GetOrganizationContentExclusionDetails"
 
 	testBadOptions(t, methodName, func() (err error) {
-		_, _, err = client.Copilot.GetCopilotOrganizationContentExclusionDetails(ctx, "\n")
+		_, _, err = client.Copilot.GetOrganizationContentExclusionDetails(ctx, "\n")
 		return err
 	})
 
 	testNewRequestAndDoFailure(t, methodName, client, func() (*Response, error) {
-		got, resp, err := client.Copilot.GetCopilotOrganizationContentExclusionDetails(ctx, "o")
+		got, resp, err := client.Copilot.GetOrganizationContentExclusionDetails(ctx, "o")
 		if got != nil {
-			t.Errorf("Copilot.GetCopilotOrganizationContentExclusionDetails returned %+v, want nil", got)
+			t.Errorf("Copilot.GetOrganizationContentExclusionDetails returned %+v, want nil", got)
 		}
 		return resp, err
 	})
 }
 
-func TestListCopilotCodingAgentRepositoriesResponse_Marshal(t *testing.T) {
+func TestListOrganizationCopilotCodingAgentRepositoriesResponse_Marshal(t *testing.T) {
 	t.Parallel()
-	testJSONMarshal(t, &ListCopilotCodingAgentRepositoriesResponse{}, `{"total_count":0,"repositories":null}`)
+	testJSONMarshal(t, &ListOrganizationCopilotCodingAgentRepositoriesResponse{}, `{"total_count":0,"repositories":null}`)
 
-	r := &ListCopilotCodingAgentRepositoriesResponse{
+	r := &ListOrganizationCopilotCodingAgentRepositoriesResponse{
 		TotalCount: 1,
 		Repositories: []*Repository{
 			{ID: Ptr(int64(1)), Name: Ptr("Hello-World"), FullName: Ptr("octocat/Hello-World")},

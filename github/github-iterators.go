@@ -2397,41 +2397,6 @@ func (s *CodespacesService) ListUserSecretsIter(ctx context.Context, opts *ListO
 	}
 }
 
-// ListCopilotCodingAgentRepositoriesIter returns an iterator that paginates through all results of ListCopilotCodingAgentRepositories.
-func (s *CopilotService) ListCopilotCodingAgentRepositoriesIter(ctx context.Context, org string, opts *ListOptions) iter.Seq2[*Repository, error] {
-	return func(yield func(*Repository, error) bool) {
-		// Create a copy of opts to avoid mutating the caller's struct
-		if opts == nil {
-			opts = &ListOptions{}
-		} else {
-			opts = Ptr(*opts)
-		}
-
-		for {
-			results, resp, err := s.ListCopilotCodingAgentRepositories(ctx, org, opts)
-			if err != nil {
-				yield(nil, err)
-				return
-			}
-
-			var iterItems []*Repository
-			if results != nil {
-				iterItems = results.Repositories
-			}
-			for _, item := range iterItems {
-				if !yield(item, nil) {
-					return
-				}
-			}
-
-			if resp.NextPage == 0 {
-				break
-			}
-			opts.Page = resp.NextPage
-		}
-	}
-}
-
 // ListCopilotEnterpriseSeatsIter returns an iterator that paginates through all results of ListCopilotEnterpriseSeats.
 func (s *CopilotService) ListCopilotEnterpriseSeatsIter(ctx context.Context, enterprise string, opts *ListOptions) iter.Seq2[*CopilotSeatDetails, error] {
 	return func(yield func(*CopilotSeatDetails, error) bool) {
@@ -2487,6 +2452,41 @@ func (s *CopilotService) ListCopilotSeatsIter(ctx context.Context, org string, o
 			var iterItems []*CopilotSeatDetails
 			if results != nil {
 				iterItems = results.Seats
+			}
+			for _, item := range iterItems {
+				if !yield(item, nil) {
+					return
+				}
+			}
+
+			if resp.NextPage == 0 {
+				break
+			}
+			opts.Page = resp.NextPage
+		}
+	}
+}
+
+// ListOrganizationCodingAgentRepositoriesIter returns an iterator that paginates through all results of ListOrganizationCodingAgentRepositories.
+func (s *CopilotService) ListOrganizationCodingAgentRepositoriesIter(ctx context.Context, org string, opts *ListOptions) iter.Seq2[*Repository, error] {
+	return func(yield func(*Repository, error) bool) {
+		// Create a copy of opts to avoid mutating the caller's struct
+		if opts == nil {
+			opts = &ListOptions{}
+		} else {
+			opts = Ptr(*opts)
+		}
+
+		for {
+			results, resp, err := s.ListOrganizationCodingAgentRepositories(ctx, org, opts)
+			if err != nil {
+				yield(nil, err)
+				return
+			}
+
+			var iterItems []*Repository
+			if results != nil {
+				iterItems = results.Repositories
 			}
 			for _, item := range iterItems {
 				if !yield(item, nil) {
